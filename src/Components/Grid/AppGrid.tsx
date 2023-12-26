@@ -1,22 +1,29 @@
 import { Box } from "@mui/material";
-import React from "react";
+import React, { useEffect } from "react";
 import AppTile from "../AppTile/AppTile";
+import { useAppDispatch } from "../../redux/hooks";
+import { changeGraphSize } from "../../redux/slices/pathFinding.slice";
 
 interface IAppGridProps {
   gridSize?: number;
 }
 
 const AppGrid = ({ gridSize = 10 }: IAppGridProps) => {
+  const dispatch = useAppDispatch();
+  useEffect(() => {
+    dispatch(changeGraphSize(gridSize));
+  }, []);
+
   return (
     <Box>
       {Array(gridSize)
         .fill(true)
-        .map((item, index) => (
+        .map((item, i) => (
           <Box sx={{ display: "flex", flexDirection: "row" }}>
             {Array(gridSize)
               .fill(true)
-              .map((item, index) => (
-                <AppTile />
+              .map((item, j) => (
+                <AppTile position={{ i, j }} />
               ))}
           </Box>
         ))}

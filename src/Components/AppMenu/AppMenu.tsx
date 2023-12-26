@@ -14,14 +14,17 @@ import AppTile from "../AppTile/AppTile";
 import { COLORS } from "../../constants/colors";
 import { Tiles } from "../../constants/tiles";
 import { useDispatch } from "react-redux";
-import { setSelectedTileType } from "../../redux/slices/pathFinding.slice";
+import {
+  setGraphTile,
+  setSelectedTileType,
+} from "../../redux/slices/pathFinding.slice";
 import AppMenuItem from "./AppMenuItem";
+import { useAppSelector } from "../../redux/hooks";
 
 export default function AppMenu() {
   const dispatch = useDispatch();
-  const handleSelectTileType = (tileType: Tiles) => {
-    dispatch(setSelectedTileType(tileType));
-  };
+  const graph = useAppSelector((state) => state.pathFinding.graph);
+
   return (
     <Paper
       sx={{
@@ -36,6 +39,10 @@ export default function AppMenu() {
         <AppMenuItem tileType={Tiles.STARTING_TILE} />
         <AppMenuItem tileType={Tiles.ENDING_TILE} />
         <AppMenuItem tileType={Tiles.BLOCK_TILE} />
+        <AppMenuItem tileType={Tiles.EMPTY_TILE} />
+        <MenuItem onClick={() => console.log(graph)}>
+          <Typography>Solve</Typography>
+        </MenuItem>
       </MenuList>
     </Paper>
   );
