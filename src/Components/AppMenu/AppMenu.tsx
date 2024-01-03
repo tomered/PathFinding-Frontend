@@ -16,14 +16,18 @@ import { Tiles } from "../../constants/tiles";
 import { useDispatch } from "react-redux";
 import {
   setGraphTile,
+  setPath,
   setSelectedTileType,
 } from "../../redux/slices/pathFinding.slice";
 import AppMenuItem from "./AppMenuItem";
-import { useAppSelector } from "../../redux/hooks";
+import { useAppDispatch, useAppSelector } from "../../redux/hooks";
+import { usePostPathFindingMutation } from "../../redux/rtk/pathFinding";
+import { Position } from "../../types/position";
 
 export default function AppMenu() {
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const graph = useAppSelector((state) => state.pathFinding.graph);
+  const [solveGraph] = usePostPathFindingMutation();
 
   return (
     <Paper
@@ -40,7 +44,15 @@ export default function AppMenu() {
         <AppMenuItem tileType={Tiles.ENDING_TILE} />
         <AppMenuItem tileType={Tiles.BLOCK_TILE} />
         <AppMenuItem tileType={Tiles.EMPTY_TILE} />
-        <MenuItem onClick={() => console.log(graph)}>
+        <MenuItem
+          onClick={() => {
+            if (graph) {
+              solveGraph(graph).then((response: any) =>
+                dispatch(setPath(response.data.path))
+              );
+            }
+          }}
+        >
           <Typography>Solve</Typography>
         </MenuItem>
       </MenuList>
