@@ -32,7 +32,9 @@ const AppTile = ({
   };
 
   const getBGColor = () => {
+    // Check if position exists
     if (position) {
+      // Check if position is part of the path
       const isPositionInPath = path?.some((element) => {
         if (element.i == position.i && element.j == position.j) {
           return true;
@@ -40,10 +42,12 @@ const AppTile = ({
 
         return false;
       });
+      // Return the path color
       if (isPositionInPath) {
         return COLORS.PATH_TILE;
       }
     }
+    // Check if graph and position exists, if so return the position tile color, otherwise return empty tile color
     return graph && position ? COLORS[graph[position.i][position.j]] : color;
   };
 

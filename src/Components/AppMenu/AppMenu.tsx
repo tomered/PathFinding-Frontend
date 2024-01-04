@@ -28,7 +28,13 @@ export default function AppMenu() {
   const dispatch = useAppDispatch();
   const graph = useAppSelector((state) => state.pathFinding.graph);
   const [solveGraph] = usePostPathFindingMutation();
-
+  const sendGraphToServer = () => {
+    if (graph) {
+      return solveGraph(graph).then((response: any) =>
+        dispatch(setPath(response.data.path))
+      );
+    }
+  };
   return (
     <Paper
       sx={{
@@ -44,15 +50,7 @@ export default function AppMenu() {
         <AppMenuItem tileType={Tiles.ENDING_TILE} />
         <AppMenuItem tileType={Tiles.BLOCK_TILE} />
         <AppMenuItem tileType={Tiles.EMPTY_TILE} />
-        <MenuItem
-          onClick={() => {
-            if (graph) {
-              solveGraph(graph).then((response: any) =>
-                dispatch(setPath(response.data.path))
-              );
-            }
-          }}
-        >
+        <MenuItem onClick={sendGraphToServer}>
           <Typography>Solve</Typography>
         </MenuItem>
       </MenuList>
