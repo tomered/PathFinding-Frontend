@@ -47,7 +47,7 @@ const AppTile = ({
         return COLORS.PATH_TILE;
       }
     }
-    // Check if graph and position exists, if so return the position tile color, otherwise return empty tile color
+    // Check if graph and position exists, if so return the position tile color, otherwise return props color
     return graph && position ? COLORS[graph[position.i][position.j]] : color;
   };
 
