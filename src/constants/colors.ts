@@ -5,4 +5,5 @@ export const COLORS: Record<Tiles, string> = {
   [Tiles.ENDING_TILE]: "red",
   [Tiles.BLOCK_TILE]: "grey",
   [Tiles.EMPTY_TILE]: "white",
+  [Tiles.PATH_TILE]: "yellow",
 };

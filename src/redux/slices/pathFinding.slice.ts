@@ -1,21 +1,27 @@
 import { PayloadAction, createSlice } from "@reduxjs/toolkit";
 import { Tiles } from "../../constants/tiles";
 import { findTileInGraph } from "../../utils/utils";
+import { Position } from "../../types/position";
 
 interface IPathFindingState {
   selectedTileType: Tiles | null;
   graph: Tiles[][] | null;
+  path: Position[] | null;
 }
 
 const initialState: IPathFindingState = {
   selectedTileType: null,
   graph: null,
+  path: null,
 };
 
 export const pathFindingSlice = createSlice({
   name: "pathFinding",
   initialState,
   reducers: {
+    setPath: (state, action: PayloadAction<Position[]>) => {
+      state.path = action.payload;
+    },
     setSelectedTileType: (state, action: PayloadAction<Tiles>) => {
       state.selectedTileType = action.payload;
     },
@@ -51,7 +57,7 @@ export const pathFindingSlice = createSlice({
   },
 });
 
-export const { setSelectedTileType, changeGraphSize, setGraphTile } =
+export const { setSelectedTileType, changeGraphSize, setGraphTile, setPath } =
   pathFindingSlice.actions;
 
 export default pathFindingSlice.reducer;
