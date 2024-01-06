@@ -11,7 +11,7 @@ import ContentCopy from "@mui/icons-material/ContentCopy";
 import ContentPaste from "@mui/icons-material/ContentPaste";
 import Cloud from "@mui/icons-material/Cloud";
 import AppTile from "../AppTile/AppTile";
-import { COLORS } from "../../constants/colors";
+import { TILE_COLORS } from "../../constants/colors";
 import { Tiles } from "../../constants/tiles";
 import { useDispatch } from "react-redux";
 import {

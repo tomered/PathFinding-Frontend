@@ -1,7 +1,7 @@
 import { Box } from "@mui/material";
 import React, { useState } from "react";
 import { useAppDispatch, useAppSelector } from "../../redux/hooks";
-import { COLORS } from "../../constants/colors";
+import { TILE_COLORS } from "../../constants/colors";
 import { setGraphTile } from "../../redux/slices/pathFinding.slice";
 import { Position } from "../../types/position";
 import { usePostPathFindingMutation } from "../../redux/rtk/pathFinding";
@@ -44,11 +44,13 @@ const AppTile = ({
       });
       // Return the path color
       if (isPositionInPath) {
-        return COLORS.PATH_TILE;
+        return TILE_COLORS.PATH_TILE;
       }
     }
     // Check if graph and position exists, if so return the position tile color, otherwise return props color
-    return graph && position ? COLORS[graph[position.i][position.j]] : color;
+    return graph && position
+      ? TILE_COLORS[graph[position.i][position.j]]
+      : color;
   };
 
   const bgcolor = getBGColor();

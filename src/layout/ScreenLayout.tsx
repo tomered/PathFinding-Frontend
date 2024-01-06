@@ -1,6 +1,7 @@
 import { jsx } from "@emotion/react";
 import { Box } from "@mui/material";
 import React, { ReactNode } from "react";
+import { COLORS } from "../constants/colors";
 
 interface ScreenLayoutProps {
   children?: ReactNode;
@@ -10,7 +11,7 @@ const ScreenLayout = ({ children, navBar }: ScreenLayoutProps) => {
   return (
     <Box
       sx={{
-        bgcolor: "white",
+        bgcolor: COLORS.SCREEN_LAYOUT_BGC,
         display: "flex",
         flex: 1,
         width: "100vw",

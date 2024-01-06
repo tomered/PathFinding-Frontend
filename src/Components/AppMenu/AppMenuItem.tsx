@@ -1,6 +1,6 @@
 import { ListItemIcon, ListItemText, MenuItem } from "@mui/material";
 import React from "react";
-import { COLORS } from "../../constants/colors";
+import { TILE_COLORS } from "../../constants/colors";
 import AppTile from "../AppTile/AppTile";
 import { Tiles, TilesToMenuLabel } from "../../constants/tiles";
 import { setSelectedTileType } from "../../redux/slices/pathFinding.slice";
@@ -19,7 +19,7 @@ const AppMenuItem = ({ tileType }: IAppMenuItemProps) => {
   return (
     <MenuItem onClick={() => handleSelectTileType(tileType)}>
       <ListItemIcon>
-        <AppTile disabled={true} color={COLORS[tileType]} />
+        <AppTile disabled={true} color={TILE_COLORS[tileType]} />
       </ListItemIcon>
       <ListItemText>{TilesToMenuLabel[tileType]}</ListItemText>
     </MenuItem>
