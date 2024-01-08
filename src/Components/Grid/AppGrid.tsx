@@ -14,7 +14,6 @@ const AppGrid = ({ gridHeight, gridWidth }: IAppGridProps) => {
   useEffect(() => {
     dispatch(changeGraphSize({ width: gridWidth, height: gridHeight }));
   }, []);
-  console.log(gridHeight, gridWidth);
   return (
     <Box>
       {Array(gridHeight)

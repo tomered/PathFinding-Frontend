@@ -4,9 +4,7 @@ import { useAppDispatch, useAppSelector } from "../../redux/hooks";
 import { TILE_COLORS } from "../../constants/colors";
 import { setGraphTile } from "../../redux/slices/pathFinding.slice";
 import { Position } from "../../types/position";
-import { usePostPathFindingMutation } from "../../redux/rtk/pathFinding";
 import { TileSize } from "../../constants/tiles";
-import useIsMouseDown from "../../hooks/isMouseDown";
 
 interface IAppTileProps {
   size?: number;
@@ -20,7 +18,6 @@ const AppTile = ({
   disabled = false,
   position,
 }: IAppTileProps) => {
-  const isMouseDown = useIsMouseDown();
   const dispatch = useAppDispatch();
   const tileType = useAppSelector(
     (state) => state.pathFinding.selectedTileType
@@ -30,6 +27,15 @@ const AppTile = ({
 
   const handleClick = () => {
     if (!disabled && tileType && position) {
+      dispatch(setGraphTile({ i: position.i, j: position.j, tileType }));
+    }
+  };
+  const handlePressedDrag = (event: React.MouseEvent) => {
+    // Check if the left mouse button is pressed
+    // `buttons` is a bitmask where left button=1, right button=2, middle (wheel) button=4
+    const isLeftButtonPressed = event.buttons & 1;
+
+    if (isLeftButtonPressed && !disabled && tileType && position) {
       dispatch(setGraphTile({ i: position.i, j: position.j, tileType }));
     }
   };
@@ -73,7 +79,7 @@ const AppTile = ({
         bgcolor,
       }}
       onClick={handleClick}
-      onMouseEnter={isMouseDown ? handleClick : () => {}}
+      onMouseEnter={handlePressedDrag}
     />
   );
 };
