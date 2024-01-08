@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import reactLogo from "./assets/react.svg";
 import viteLogo from "/vite.svg";
 
@@ -12,6 +12,25 @@ import Compare from "./pages/ComparePage";
 import HistoryPage from "./pages/HistoryPage";
 
 function App() {
+  const [isMouseDown, setIsMouseDown] = useState(false);
+  useEffect(() => {
+    const handleGlobalMouseDown = () => {
+      setIsMouseDown(true);
+    };
+
+    const handleGlobalMouseUp = () => {
+      setIsMouseDown(false);
+    };
+
+    window.addEventListener('mousedown', handleGlobalMouseDown);
+    window.addEventListener('mouseup', handleGlobalMouseUp);
+
+    return () => {
+      window.removeEventListener('mousedown', handleGlobalMouseDown);
+      window.removeEventListener('mouseup', handleGlobalMouseUp);
+    };
+  }, []);
+
   return (
     // <>
     //   <AppGrid />

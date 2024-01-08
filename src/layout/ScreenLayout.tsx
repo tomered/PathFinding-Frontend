@@ -17,6 +17,7 @@ const ScreenLayout = ({ children, navBar }: ScreenLayoutProps) => {
         width: "100vw",
         height: "100vh",
         flexDirection: "column",
+        justifyContent: "flex-start",
       }}
     >
       {navBar}

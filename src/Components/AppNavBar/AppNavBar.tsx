@@ -12,8 +12,8 @@ import { useNavigate } from "react-router-dom";
 const AppNavBar = () => {
   const navigate = useNavigate();
   return (
-    <Box sx={{ flexGrow: 1 }}>
-      <AppBar sx={{ bgcolor: "#34495e" }}>
+    <Box sx={{ bgcolor: "blue" }}>
+      <AppBar sx={{ bgcolor: "#34495e", position: "static" }}>
         <Toolbar>
           <Typography
             sx={{

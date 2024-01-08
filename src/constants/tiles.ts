@@ -13,3 +13,5 @@ export const TilesToMenuLabel: Record<Tiles, string> = {
   EMPTY_TILE: "Empty",
   PATH_TILE: "path",
 };
+
+export const TileSize = 30;
