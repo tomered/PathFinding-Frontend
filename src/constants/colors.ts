@@ -5,7 +5,11 @@ export const COLORS = {
   BLOCK_TILE: "grey",
   EMPTY_TILE: "white",
   PATH_TILE: "yellow",
+  VISITED_LIST_TILE: "transparent",
   SCREEN_LAYOUT_BGC: "white",
+  BUILD_GRAPH_MENU_BORDER: "lightgray",
+  VISITED_TRANSITION_1: "#a902bf",
+  VISITED_TRANSITION_2: "#02bfb3",
 };
 
 export const TILE_COLORS: Record<Tiles, string> = {
@@ -14,4 +18,5 @@ export const TILE_COLORS: Record<Tiles, string> = {
   [Tiles.BLOCK_TILE]: COLORS.BLOCK_TILE,
   [Tiles.EMPTY_TILE]: COLORS.EMPTY_TILE,
   [Tiles.PATH_TILE]: COLORS.PATH_TILE,
+  [Tiles.VISITED_LIST_TILE]: COLORS.VISITED_LIST_TILE,
 };

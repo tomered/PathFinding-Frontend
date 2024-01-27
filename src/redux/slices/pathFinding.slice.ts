@@ -1,12 +1,13 @@
 import { PayloadAction, createSlice } from "@reduxjs/toolkit";
 import { Tiles } from "../../constants/tiles";
-import { findTileInGraph } from "../../utils/utils";
+import { findTileInGraph, isSamePosition } from "../../utils/utils";
 import { Position } from "../../types/position";
 
 interface IPathFindingState {
   selectedTileType: Tiles | null;
   graph: Tiles[][] | null;
-  path: Position[] | null;
+  path: Position[];
+  visitedList: Position[];
   startingPosition: Position | null;
   endingPosition: Position | null;
 }
@@ -14,7 +15,8 @@ interface IPathFindingState {
 const initialState: IPathFindingState = {
   selectedTileType: null,
   graph: null,
-  path: null,
+  path: [],
+  visitedList: [],
   startingPosition: null,
   endingPosition: null,
 };
@@ -23,8 +25,28 @@ export const pathFindingSlice = createSlice({
   name: "pathFinding",
   initialState,
   reducers: {
-    setPath: (state, action: PayloadAction<Position[]>) => {
-      state.path = action.payload;
+    clearGraph: (state) => {
+      state.graph = Array.from({ length: state.graph?.length || 1 }, () =>
+        Array.from(
+          { length: state.graph?.[0].length || 1 },
+          () => Tiles.EMPTY_TILE
+        )
+      );
+      state.path = [];
+      state.visitedList = [];
+      state.endingPosition = null;
+      state.startingPosition = null;
+      state.selectedTileType = null;
+    },
+    setPathPosition: (state, action: PayloadAction<Position>) => {
+      state.path?.push(action.payload);
+    },
+    setVisitedPosition: (state, action: PayloadAction<Position[]>) => {
+      state.visitedList = [...state.visitedList, ...action.payload];
+    },
+    clearSolution: (state) => {
+      state.visitedList = [];
+      state.path = [];
     },
     setSelectedTileType: (state, action: PayloadAction<Tiles>) => {
       state.selectedTileType = action.payload;
@@ -79,7 +101,14 @@ export const pathFindingSlice = createSlice({
   },
 });
 
-export const { setSelectedTileType, changeGraphSize, setGraphTile, setPath } =
-  pathFindingSlice.actions;
+export const {
+  setSelectedTileType,
+  changeGraphSize,
+  setGraphTile,
+  setPathPosition,
+  setVisitedPosition,
+  clearSolution,
+  clearGraph,
+} = pathFindingSlice.actions;
 
 export default pathFindingSlice.reducer;

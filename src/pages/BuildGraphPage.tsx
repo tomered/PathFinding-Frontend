@@ -12,8 +12,21 @@ const BuildGraphPage = () => {
 
   return (
     <ScreenLayout navBar={<AppNavBar />}>
-      <Box sx={{ color: "black" }}>
+      <Box
+        sx={{
+          color: "black",
+          display: "flex",
+          flex: 1,
+          flexDirection: "column",
+        }}
+      >
         <AppGrid gridWidth={screenWidthSize} gridHeight={screenHeightSize} />
+        <Box
+          sx={{
+            display: "flex",
+            flex: 1,
+          }}
+        ></Box>
         <AppMenu />
       </Box>
     </ScreenLayout>
