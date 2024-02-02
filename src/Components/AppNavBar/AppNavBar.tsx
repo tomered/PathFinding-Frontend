@@ -8,12 +8,13 @@ import {
 } from "@mui/material";
 import React from "react";
 import { useNavigate } from "react-router-dom";
+import { COLORS } from "../../constants/colors";
 
 const AppNavBar = () => {
   const navigate = useNavigate();
   return (
-    <Box sx={{ flexGrow: 1 }}>
-      <AppBar sx={{ bgcolor: "#34495e" }}>
+    <Box>
+      <AppBar sx={{ bgcolor: COLORS.NAVBAR_BGC, position: "static" }}>
         <Toolbar>
           <Typography
             sx={{

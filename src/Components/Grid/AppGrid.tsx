@@ -5,22 +5,22 @@ import { useAppDispatch } from "../../redux/hooks";
 import { changeGraphSize } from "../../redux/slices/pathFinding.slice";
 
 interface IAppGridProps {
-  gridSize?: number;
+  gridWidth: number;
+  gridHeight: number;
 }
 
-const AppGrid = ({ gridSize = 10 }: IAppGridProps) => {
+const AppGrid = ({ gridHeight, gridWidth }: IAppGridProps) => {
   const dispatch = useAppDispatch();
   useEffect(() => {
-    dispatch(changeGraphSize(gridSize));
+    dispatch(changeGraphSize({ width: gridWidth, height: gridHeight }));
   }, []);
-
   return (
     <Box>
-      {Array(gridSize)
+      {Array(gridHeight)
         .fill(true)
         .map((item, i) => (
           <Box sx={{ display: "flex", flexDirection: "row" }}>
-            {Array(gridSize)
+            {Array(gridWidth)
               .fill(true)
               .map((item, j) => (
                 <AppTile position={{ i, j }} />
