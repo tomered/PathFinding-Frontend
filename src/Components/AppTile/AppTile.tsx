@@ -94,7 +94,7 @@ const AppTile = ({
           position: "relative",
           width: size - border,
           height: size - border,
-          borderColor: "black",
+          borderColor: COLORS.BORDER_BGC,
           border: border,
           bgcolor: bgcolor,
           display: "flex",

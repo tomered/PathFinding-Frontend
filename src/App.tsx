@@ -13,6 +13,8 @@ import HistoryPage from "./pages/HistoryPage";
 
 function App() {
   const [isMouseDown, setIsMouseDown] = useState(false);
+
+  // Check if the right click of the mouse is down
   useEffect(() => {
     const handleGlobalMouseDown = () => {
       setIsMouseDown(true);
@@ -22,20 +24,16 @@ function App() {
       setIsMouseDown(false);
     };
 
-    window.addEventListener('mousedown', handleGlobalMouseDown);
-    window.addEventListener('mouseup', handleGlobalMouseUp);
+    window.addEventListener("mousedown", handleGlobalMouseDown);
+    window.addEventListener("mouseup", handleGlobalMouseUp);
 
     return () => {
-      window.removeEventListener('mousedown', handleGlobalMouseDown);
-      window.removeEventListener('mouseup', handleGlobalMouseUp);
+      window.removeEventListener("mousedown", handleGlobalMouseDown);
+      window.removeEventListener("mouseup", handleGlobalMouseUp);
     };
   }, []);
 
   return (
-    // <>
-    //   <AppGrid />
-    //   <AppMenu />
-    // </>
     <Routes>
       <Route path="/" element={<BuildGraph />}></Route>
       <Route path="/compare" element={<Compare />}></Route>

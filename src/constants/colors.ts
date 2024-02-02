@@ -10,6 +10,8 @@ export const COLORS = {
   BUILD_GRAPH_MENU_BORDER: "lightgray",
   VISITED_TRANSITION_1: "#a902bf",
   VISITED_TRANSITION_2: "#02bfb3",
+  NAVBAR_BGC: "#34495e",
+  BORDER_BGC: "black",
 };
 
 export const TILE_COLORS: Record<Tiles, string> = {

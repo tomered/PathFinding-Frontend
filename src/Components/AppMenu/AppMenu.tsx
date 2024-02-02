@@ -23,9 +23,7 @@ export default function AppMenu() {
     if (graph) {
       dispatch(clearSolution());
       return solveGraph(graph).then(async (response: any) => {
-        // response.data.visitedList.reverse();
-        // response.data.path.reverse();
-
+        // Return the visited tiles from the server by distance from the starting position 
         for (let i = response.data.visitedList.length; i >= 0; i--) {
           delay(0).then(() =>
             dispatch(setVisitedPosition(response.data.visitedList[i]))
