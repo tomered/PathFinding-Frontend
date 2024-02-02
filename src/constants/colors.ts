@@ -8,8 +8,10 @@ export const COLORS = {
   VISITED_LIST_TILE: "transparent",
   SCREEN_LAYOUT_BGC: "white",
   BUILD_GRAPH_MENU_BORDER: "lightgray",
-  VISITED_TRANSITION_1: "#a902bf",
-  VISITED_TRANSITION_2: "#02bfb3",
+  VISITED: {
+    START: "#a902bf",
+    END: "#02bfb3",
+  },
   NAVBAR_BGC: "#34495e",
   BORDER_BGC: "black",
 };

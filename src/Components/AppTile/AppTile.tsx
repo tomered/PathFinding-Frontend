@@ -106,7 +106,7 @@ const AppTile = ({
             left: 0,
             width: "100%",
             height: "100%",
-            bgcolor: COLORS.VISITED_TRANSITION_2, // Initial color is set to purple
+            bgcolor: COLORS.VISITED.END, // Initial color is set to purple
             opacity: bgcolor === visitedColor ? 1 : 0, // Initial opacity for smooth transition
             transition:
               bgcolor === COLORS.EMPTY_TILE
@@ -131,7 +131,7 @@ const AppTile = ({
               left: 0,
               width: "100%",
               height: "100%",
-              bgcolor: COLORS.VISITED_TRANSITION_1, // Initial color is set to purple
+              bgcolor: COLORS.VISITED.START, // Initial color is set to purple
               opacity: bgcolor !== visitedColor ? 0 : 1, // Initial opacity for smooth transition
               transition:
                 bgcolor === COLORS.EMPTY_TILE
