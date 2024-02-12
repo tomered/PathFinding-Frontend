@@ -1,7 +1,7 @@
 import { Box } from "@mui/material";
 import React, { useEffect } from "react";
 import AppTile from "../AppTile/AppTile";
-import { useAppDispatch } from "../../redux/hooks";
+import { useAppDispatch, useAppSelector } from "../../redux/hooks";
 import { changeGraphSize } from "../../redux/slices/pathFinding.slice";
 
 interface IAppGridProps {
@@ -11,8 +11,11 @@ interface IAppGridProps {
 
 const AppGrid = ({ gridHeight, gridWidth }: IAppGridProps) => {
   const dispatch = useAppDispatch();
+  const graph = useAppSelector((state) => state.pathFinding.graph);
   useEffect(() => {
-    dispatch(changeGraphSize({ width: gridWidth, height: gridHeight }));
+    if (!graph) {
+      dispatch(changeGraphSize({ width: gridWidth, height: gridHeight }));
+    }
   }, []);
   return (
     <Box>

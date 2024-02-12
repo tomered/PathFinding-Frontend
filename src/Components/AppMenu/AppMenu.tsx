@@ -1,4 +1,10 @@
-import { Box } from "@mui/material";
+import {
+  Box,
+  FormControl,
+  InputLabel,
+  Select,
+  SelectChangeEvent,
+} from "@mui/material";
 import MenuItem from "@mui/material/MenuItem";
 import Typography from "@mui/material/Typography";
 import { COLORS } from "../../constants/colors";
@@ -10,20 +16,29 @@ import {
   setPathPosition,
   setVisitedPosition,
   clearSolution,
+  setAlgorithm,
 } from "../../redux/slices/pathFinding.slice";
 import AppMenuItem from "./AppMenuItem";
 import { delay } from "../../utils/utils";
 import { Position } from "../../types/position";
+import React from "react";
 
 export default function AppMenu() {
+  // const [algorithm, setAge] = React.useState('');
+
+  // const handleChange = (event: SelectChangeEvent) => {
+  //   setAge(event.target.value as string);
+
   const dispatch = useAppDispatch();
   const graph = useAppSelector((state) => state.pathFinding.graph);
+  const algorithm = useAppSelector((state) => state.pathFinding.algorithm);
   const [solveGraph] = usePostPathFindingMutation();
-  const sendGraphToServer = () => {
-    if (graph) {
+  const 
+  sendGraphToServer = () => {
+    if (graph && algorithm) {
       dispatch(clearSolution());
-      return solveGraph(graph).then(async (response: any) => {
-        // Return the visited tiles from the server by distance from the starting position 
+      return solveGraph({ graph, algorithm }).then(async (response: any) => {
+        // Return the visited tiles from the server by distance from the starting position
         for (let i = response.data.visitedList.length; i >= 0; i--) {
           delay(0).then(() =>
             dispatch(setVisitedPosition(response.data.visitedList[i]))
@@ -40,6 +55,11 @@ export default function AppMenu() {
   const setClearGraph = () => {
     dispatch(clearGraph());
   };
+
+  const chooseAlgorithm = (event: SelectChangeEvent) => {
+    dispatch(setAlgorithm(event.target.value as string));
+  };
+
   return (
     <Box
       sx={{
@@ -66,6 +86,23 @@ export default function AppMenu() {
         <AppMenuItem tileType={Tiles.ENDING_TILE} />
         <AppMenuItem tileType={Tiles.BLOCK_TILE} />
         <AppMenuItem tileType={Tiles.EMPTY_TILE} />
+        <FormControl fullWidth sx={{ margin: 1 }}>
+          <InputLabel id="demo-simple-select-label">Algorithm</InputLabel>
+          <Select
+            labelId="demo-simple-select-label"
+            id="demo-simple-select"
+            value={algorithm || "bfs"}
+            label="Algorithm"
+            onChange={chooseAlgorithm}
+          >
+            <MenuItem value={"bfs"}>BFS</MenuItem>
+            <MenuItem value={"dfs"}>DFS</MenuItem>
+            <MenuItem value={"bidirectional_search"}>
+              Bidirectional Search
+            </MenuItem>
+            <MenuItem value={"a_star_search"}>A* Search</MenuItem>
+          </Select>
+        </FormControl>
         <MenuItem onClick={sendGraphToServer}>
           <Typography>Solve</Typography>
         </MenuItem>

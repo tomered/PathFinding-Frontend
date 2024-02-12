@@ -10,6 +10,7 @@ interface IPathFindingState {
   visitedList: Position[];
   startingPosition: Position | null;
   endingPosition: Position | null;
+  algorithm: string;
 }
 
 const initialState: IPathFindingState = {
@@ -19,6 +20,7 @@ const initialState: IPathFindingState = {
   visitedList: [],
   startingPosition: null,
   endingPosition: null,
+  algorithm: "bfs",
 };
 
 export const pathFindingSlice = createSlice({
@@ -38,8 +40,14 @@ export const pathFindingSlice = createSlice({
       state.startingPosition = null;
       state.selectedTileType = null;
     },
+    setGraph: (state, action: PayloadAction<Tiles[][]>) => {
+      state.graph = action.payload;
+    },
     setPathPosition: (state, action: PayloadAction<Position>) => {
       state.path?.push(action.payload);
+    },
+    setAlgorithm: (state, action) => {
+      state.algorithm = action.payload;
     },
     setVisitedPosition: (state, action: PayloadAction<Position[]>) => {
       state.visitedList = [...state.visitedList, ...action.payload];
@@ -109,6 +117,8 @@ export const {
   setVisitedPosition,
   clearSolution,
   clearGraph,
+  setAlgorithm,
+  setGraph,
 } = pathFindingSlice.actions;
 
 export default pathFindingSlice.reducer;
