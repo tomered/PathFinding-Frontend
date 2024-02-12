@@ -24,17 +24,11 @@ import { Position } from "../../types/position";
 import React from "react";
 
 export default function AppMenu() {
-  // const [algorithm, setAge] = React.useState('');
-
-  // const handleChange = (event: SelectChangeEvent) => {
-  //   setAge(event.target.value as string);
-
   const dispatch = useAppDispatch();
   const graph = useAppSelector((state) => state.pathFinding.graph);
   const algorithm = useAppSelector((state) => state.pathFinding.algorithm);
   const [solveGraph] = usePostPathFindingMutation();
-  const 
-  sendGraphToServer = () => {
+  const sendGraphToServer = () => {
     if (graph && algorithm) {
       dispatch(clearSolution());
       return solveGraph({ graph, algorithm }).then(async (response: any) => {
