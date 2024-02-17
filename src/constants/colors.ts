@@ -14,6 +14,9 @@ export const COLORS = {
   },
   NAVBAR_BGC: "#34495e",
   BORDER_BGC: "black",
+  HISTORY_PAGE_COLOR: "black",
+  COMPARE_TABLE_BGC: "#bdd8f2",
+  COMPARE_TABLE_COLOR: "black",
 };
 
 export const TILE_COLORS: Record<Tiles, string> = {

@@ -7,13 +7,14 @@ import AppGraphImage from "../AppGraphImage/AppGraphImage";
 import { useAppDispatch } from "../../redux/hooks";
 import { setGraph } from "../../redux/slices/pathFinding.slice";
 import { useNavigate } from "react-router-dom";
+import { COLORS } from "../../constants/colors";
 
 interface IAppHistoryBlockProps {
   graph?: Tiles[][];
   path: Position[];
   visitedList: Position[];
   algorithm: String;
-  time: number;
+  time: string;
   searchedTiles: number;
   pathSize: number;
 }
@@ -58,9 +59,13 @@ const AppHistoryBlock = ({
           width: "40%",
         }}
       >
-        <Typography sx={{ color: "black" }}>Algorithm: {algorithm}</Typography>
-        <Typography sx={{ color: "black" }}>Time: {time}</Typography>
-        <Typography sx={{ color: "black" }}>
+        <Typography sx={{ color: COLORS.HISTORY_PAGE_COLOR }}>
+          Algorithm: {algorithm}
+        </Typography>
+        <Typography sx={{ color: COLORS.HISTORY_PAGE_COLOR }}>
+          Time: {time}
+        </Typography>
+        <Typography sx={{ color: COLORS.HISTORY_PAGE_COLOR }}>
           Number Of Searched Tiles: {searchedTiles}
         </Typography>
         <Typography sx={{ color: "black" }}>Path Size: {pathSize}</Typography>

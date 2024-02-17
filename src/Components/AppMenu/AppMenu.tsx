@@ -10,24 +10,31 @@ import Typography from "@mui/material/Typography";
 import { COLORS } from "../../constants/colors";
 import { Tiles } from "../../constants/tiles";
 import { useAppDispatch, useAppSelector } from "../../redux/hooks";
-import { usePostPathFindingMutation } from "../../redux/rtk/pathFinding";
+import {
+  usePostPathFindingCompareMutation,
+  usePostPathFindingMutation,
+} from "../../redux/rtk/pathFinding";
 import {
   clearGraph,
   setPathPosition,
   setVisitedPosition,
   clearSolution,
   setAlgorithm,
+  setCompareGraph,
 } from "../../redux/slices/pathFinding.slice";
 import AppMenuItem from "./AppMenuItem";
 import { delay } from "../../utils/utils";
 import { Position } from "../../types/position";
 import React from "react";
+import { useNavigate } from "react-router-dom";
+import { CompareResponseType } from "../../types/responses";
 
 export default function AppMenu() {
   const dispatch = useAppDispatch();
   const graph = useAppSelector((state) => state.pathFinding.graph);
   const algorithm = useAppSelector((state) => state.pathFinding.algorithm);
   const [solveGraph] = usePostPathFindingMutation();
+  const [compareGraph, { data }] = usePostPathFindingCompareMutation();
   const sendGraphToServer = () => {
     if (graph && algorithm) {
       dispatch(clearSolution());
@@ -45,6 +52,16 @@ export default function AppMenu() {
       });
     }
   };
+  const sendCompareGraphToServer = () => {
+    if (graph) {
+      return compareGraph({ graph })
+        .then((data) => {
+          // @ts-ignore
+          dispatch(setCompareGraph(data.data));
+        })
+        .catch(console.log);
+    }
+  };
 
   const setClearGraph = () => {
     dispatch(clearGraph());
@@ -53,6 +70,7 @@ export default function AppMenu() {
   const chooseAlgorithm = (event: SelectChangeEvent) => {
     dispatch(setAlgorithm(event.target.value as string));
   };
+  const navigate = useNavigate();
 
   return (
     <Box
@@ -99,6 +117,14 @@ export default function AppMenu() {
         </FormControl>
         <MenuItem onClick={sendGraphToServer}>
           <Typography>Solve</Typography>
+        </MenuItem>
+        <MenuItem
+          onClick={() => {
+            sendCompareGraphToServer();
+            navigate("/compare");
+          }}
+        >
+          <Typography>Compare</Typography>
         </MenuItem>
         <MenuItem onClick={setClearGraph}>
           <Typography>Clear</Typography>

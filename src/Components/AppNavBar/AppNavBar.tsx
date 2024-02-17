@@ -33,13 +33,13 @@ const AppNavBar = () => {
           >
             Build Graph
           </Button>
-          <Button
+          {/* <Button
             variant="text"
             sx={{ color: "white" }}
             onClick={() => navigate("/compare")}
           >
             Compare
-          </Button>
+          </Button> */}
           <Button
             variant="text"
             sx={{ color: "white" }}

@@ -3,6 +3,7 @@ import React from "react";
 import AppHistoryBlock from "../AppHistoryBlock/AppHistoryBlock";
 import { useAppSelector } from "../../redux/hooks";
 import { useGetAllPathFindingsQuery } from "../../redux/rtk/pathFinding";
+import { formatMillisecondsToString } from "../../utils/utils";
 
 const AppHistoryGrid = () => {
   const path = useAppSelector((state) => state.pathFinding.path);
@@ -42,7 +43,7 @@ const AppHistoryGrid = () => {
                   visitedList={visitedList}
                   pathSize={data[index].pathSize}
                   searchedTiles={data[index].searchedTiles}
-                  time={data[index].time}
+                  time={formatMillisecondsToString(data[index].time)}
                   graph={data[index].graph}
                 />
               </Grid>

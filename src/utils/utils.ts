@@ -29,3 +29,14 @@ export const isSamePosition = (
 
 export const delay = (duration: number) =>
   new Promise((resolve) => setTimeout(resolve, duration));
+
+export function formatMillisecondsToString(time: number | string): string {
+  if (typeof time == "string") {
+    time = parseFloat(time);
+  }
+  if (typeof time == "number") {
+    return `${time.toFixed(3)} ms`;
+  }
+
+  return time;
+}
