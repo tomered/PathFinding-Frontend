@@ -17,6 +17,7 @@ export const pathFindingApi = createApi({
         time: number;
         searchedTiles: number;
         pathSize: number;
+        imageString: string;
       }[],
       void
     >({
@@ -41,7 +42,10 @@ export const pathFindingApi = createApi({
       }),
       invalidatesTags: ["history"],
     }),
-    postPathFindingCompare: builder.mutation<CompareResponseType, { graph: Tiles[][] }>({
+    postPathFindingCompare: builder.mutation<
+      CompareResponseType,
+      { graph: Tiles[][] }
+    >({
       query: (arg: { graph: Tiles[][] }) => ({
         url: "/compare",
         method: "POST",

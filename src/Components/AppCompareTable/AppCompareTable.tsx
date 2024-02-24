@@ -29,7 +29,6 @@ const StyledTableCell = styled(TableCell)(({ theme }) => ({
 }));
 
 function createData(name: any, data: any[]) {
-  console.log(data);
   return { name, data };
 }
 
@@ -44,7 +43,6 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
 }));
 
 const AppCompareTable = () => {
-  // const [_, { data }] = usePostPathFindingCompareMutation();
   const solution = useAppSelector((state) => state.pathFinding.solution);
 
   const bfsTime = formatMillisecondsToString(solution?.bfs.time ?? 0);
@@ -57,10 +55,38 @@ const AppCompareTable = () => {
   );
   const rows = [
     createData("Solution Graph", [
-      <AppGraphImage />,
-      <AppGraphImage />,
-      <AppGraphImage />,
-      <AppGraphImage />,
+      <AppGraphImage
+        image={
+          <img
+            style={{ width: "200px", height: "100px" }}
+            src={solution?.bfs.imageString}
+          />
+        }
+      />,
+      <AppGraphImage
+        image={
+          <img
+            style={{ width: "200px", height: "100px" }}
+            src={solution?.dfs.imageString}
+          />
+        }
+      />,
+      <AppGraphImage
+        image={
+          <img
+            style={{ width: "200px", height: "100px" }}
+            src={solution?.bidirectional_search.imageString}
+          />
+        }
+      />,
+      <AppGraphImage
+        image={
+          <img
+            style={{ width: "200px", height: "100px" }}
+            src={solution?.a_star_search.imageString}
+          />
+        }
+      />,
     ]),
     createData("Path Size", [
       solution?.bfs.path.length,
@@ -69,10 +95,10 @@ const AppCompareTable = () => {
       solution?.a_star_search.path.length,
     ]),
     createData("Number Of Visited Tiles", [
-      solution?.bfs.visitedList.length,
-      solution?.dfs.visitedList.length,
-      solution?.bidirectional_search.visitedList.length,
-      solution?.a_star_search.visitedList.length,
+      solution?.bfs.visitedList.flat().length,
+      solution?.dfs.visitedList.flat().length,
+      solution?.bidirectional_search.visitedList.flat().length,
+      solution?.a_star_search.visitedList.flat().length,
     ]),
     createData("Time", [bfsTime, dfsTime, bidirectionalTime, aStarTime]),
   ];

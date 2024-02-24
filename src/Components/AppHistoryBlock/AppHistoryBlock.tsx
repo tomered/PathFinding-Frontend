@@ -8,6 +8,7 @@ import { useAppDispatch } from "../../redux/hooks";
 import { setGraph } from "../../redux/slices/pathFinding.slice";
 import { useNavigate } from "react-router-dom";
 import { COLORS } from "../../constants/colors";
+import { image } from "html2canvas/dist/types/css/types/image";
 
 interface IAppHistoryBlockProps {
   graph?: Tiles[][];
@@ -17,6 +18,7 @@ interface IAppHistoryBlockProps {
   time: string;
   searchedTiles: number;
   pathSize: number;
+  image: any;
 }
 
 const AppHistoryBlock = ({
@@ -27,6 +29,7 @@ const AppHistoryBlock = ({
   pathSize,
   searchedTiles,
   graph,
+  image,
 }: IAppHistoryBlockProps) => {
   const dispatch = useAppDispatch();
   const onClick = () => {
@@ -45,6 +48,7 @@ const AppHistoryBlock = ({
         display: "flex",
 
         flexDirection: "row",
+        bgcolor: "#d4effa",
       }}
       onClick={() => {
         onClick();
@@ -52,23 +56,53 @@ const AppHistoryBlock = ({
       }}
     >
       {/* <Box sx={{ height: "100%", width: "60%" }}>Picture</Box> */}
-      <AppGraphImage />
+      <AppGraphImage image={image} />
       <Box
         sx={{
           height: "100%",
           width: "40%",
         }}
       >
-        <Typography sx={{ color: COLORS.HISTORY_PAGE_COLOR }}>
+        <Typography
+          sx={{
+            color: COLORS.HISTORY_PAGE_COLOR,
+            width: "100%",
+            padding: 1,
+            fontSize: 25,
+          }}
+        >
           Algorithm: {algorithm}
         </Typography>
-        <Typography sx={{ color: COLORS.HISTORY_PAGE_COLOR }}>
+        <Typography
+          sx={{
+            color: COLORS.HISTORY_PAGE_COLOR,
+            width: "100%",
+            padding: 1,
+            fontSize: 25,
+          }}
+        >
           Time: {time}
         </Typography>
-        <Typography sx={{ color: COLORS.HISTORY_PAGE_COLOR }}>
+        <Typography
+          sx={{
+            color: COLORS.HISTORY_PAGE_COLOR,
+            width: "100%",
+            padding: 1,
+            fontSize: 25,
+          }}
+        >
           Number Of Searched Tiles: {searchedTiles}
         </Typography>
-        <Typography sx={{ color: "black" }}>Path Size: {pathSize}</Typography>
+        <Typography
+          sx={{
+            color: COLORS.HISTORY_PAGE_COLOR,
+            width: "100%",
+            padding: 1,
+            fontSize: 25,
+          }}
+        >
+          Path Size: {pathSize}
+        </Typography>
       </Box>
     </Card>
   );

@@ -8,6 +8,7 @@ export interface AlgorithmResponse {
   path: Position[];
   visitedList: Position[][];
   time: number;
+  imageString: string;
 }
 
 export type Algorithms =

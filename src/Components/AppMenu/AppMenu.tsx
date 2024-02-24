@@ -25,7 +25,7 @@ import {
 import AppMenuItem from "./AppMenuItem";
 import { delay } from "../../utils/utils";
 import { Position } from "../../types/position";
-import React from "react";
+import React, { ReactNode, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import { CompareResponseType } from "../../types/responses";
 
@@ -56,7 +56,7 @@ export default function AppMenu() {
     if (graph) {
       return compareGraph({ graph })
         .then((data) => {
-          // @ts-ignore
+          // @ts-ignore it does not recognize data.data, and it should work because inside data there is data
           dispatch(setCompareGraph(data.data));
         })
         .catch(console.log);

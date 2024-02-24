@@ -1,5 +1,7 @@
+import html2canvas from "html2canvas";
 import { Tiles } from "../constants/tiles";
 import { Position } from "../types/position";
+import { COLORS } from "../constants/colors";
 
 export const findTileInGraph = (
   graph: Tiles[][],
@@ -39,4 +41,54 @@ export function formatMillisecondsToString(time: number | string): string {
   }
 
   return time;
+}
+
+// export const exportAsImage = async (element: any, imageFileName: any) => {
+//   const canvas = await html2canvas(element);
+//   const image = canvas.toDataURL("image/png", 1.0);
+//   downloadImage(image, imageFileName);
+// };
+// const downloadImage = (blob: string, fileName: string) => {
+//   const fakeLink = window.document.createElement("a");
+//   fakeLink.setAttribute("style", "display:none;");
+//   fakeLink.download = fileName;
+
+//   fakeLink.href = blob;
+
+//   document.body.appendChild(fakeLink);
+//   fakeLink.click();
+//   document.body.removeChild(fakeLink);
+
+//   fakeLink.remove();
+// };
+
+export function createImage(imageMatrix: number[][]) {
+  const canvas = document.getElementById("canvas");
+  //@ts-ignore
+  const ctx = canvas.getContext("2d");
+
+  const imageData = ctx.createImageData(
+    imageMatrix[0].length,
+    imageMatrix.length
+  );
+  for (let i = 0; i < imageMatrix[0].length; i++) {
+    for (let j = 0; j < imageMatrix.length; j++) {
+      if (imageMatrix[i][j] === 0) {
+        ctx.putImageData(imageData, i, j, COLORS.BLOCK_TILE);
+      }
+      if (imageMatrix[i][j] === 1) {
+        ctx.putImageData(imageData, i, j, COLORS.STARTING_TILE);
+      }
+      if (imageMatrix[i][j] === 2) {
+        ctx.putImageData(imageData, i, j, COLORS.ENDING_TILE);
+      }
+      if (imageMatrix[i][j] === 3) {
+        ctx.putImageData(imageData, i, j, COLORS.VISITED_LIST_TILE);
+      }
+      if (imageMatrix[i][j] === 4) {
+        ctx.putImageData(imageData, i, j, COLORS.PATH_TILE);
+      }
+    }
+  }
+  return imageData;
 }
