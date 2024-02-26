@@ -3,6 +3,7 @@ import React from "react";
 import AppHistoryBlock from "../AppHistoryBlock/AppHistoryBlock";
 import { useAppSelector } from "../../redux/hooks";
 import { useGetAllPathFindingsQuery } from "../../redux/rtk/pathFinding";
+import { createImage, formatMillisecondsToString } from "../../utils/utils";
 
 const AppHistoryGrid = () => {
   const path = useAppSelector((state) => state.pathFinding.path);
@@ -42,8 +43,14 @@ const AppHistoryGrid = () => {
                   visitedList={visitedList}
                   pathSize={data[index].pathSize}
                   searchedTiles={data[index].searchedTiles}
-                  time={data[index].time}
+                  time={formatMillisecondsToString(data[index].time)}
                   graph={data[index].graph}
+                  image={
+                    <img
+                      style={{ width: "200px", height: "100px" }}
+                      src={data[index].imageString}
+                    />
+                  }
                 />
               </Grid>
             </>

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { forwardRef, useRef } from "react";
 import ScreenLayout from "../layout/ScreenLayout";
 import { Box } from "@mui/material";
 import AppNavBar from "../Components/AppNavBar/AppNavBar";
@@ -9,7 +9,6 @@ import AppMenu from "../Components/AppMenu/AppMenu";
 const BuildGraphPage = () => {
   const screenWidthSize = Math.floor(window.innerWidth / TileSize);
   const screenHeightSize = Math.floor(window.innerHeight / TileSize / 1.5);
-
   return (
     <ScreenLayout navBar={<AppNavBar />}>
       <Box

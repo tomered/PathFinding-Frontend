@@ -2,6 +2,7 @@ import { PayloadAction, createSlice } from "@reduxjs/toolkit";
 import { Tiles } from "../../constants/tiles";
 import { findTileInGraph, isSamePosition } from "../../utils/utils";
 import { Position } from "../../types/position";
+import { CompareResponseType } from "../../types/responses";
 
 interface IPathFindingState {
   selectedTileType: Tiles | null;
@@ -11,6 +12,7 @@ interface IPathFindingState {
   startingPosition: Position | null;
   endingPosition: Position | null;
   algorithm: string;
+  solution: CompareResponseType | null;
 }
 
 const initialState: IPathFindingState = {
@@ -21,6 +23,7 @@ const initialState: IPathFindingState = {
   startingPosition: null,
   endingPosition: null,
   algorithm: "bfs",
+  solution: null,
 };
 
 export const pathFindingSlice = createSlice({
@@ -42,6 +45,9 @@ export const pathFindingSlice = createSlice({
     },
     setGraph: (state, action: PayloadAction<Tiles[][]>) => {
       state.graph = action.payload;
+    },
+    setCompareGraph: (state, action: PayloadAction<CompareResponseType>) => {
+      state.solution = action.payload;
     },
     setPathPosition: (state, action: PayloadAction<Position>) => {
       state.path?.push(action.payload);
@@ -119,6 +125,7 @@ export const {
   clearGraph,
   setAlgorithm,
   setGraph,
+  setCompareGraph
 } = pathFindingSlice.actions;
 
 export default pathFindingSlice.reducer;

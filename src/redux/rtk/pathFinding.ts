@@ -1,6 +1,7 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 import { Position } from "../../types/position";
 import { Tiles } from "../../constants/tiles";
+import { CompareResponseType } from "../../types/responses";
 
 export const pathFindingApi = createApi({
   reducerPath: "pathFindingRTK",
@@ -16,6 +17,7 @@ export const pathFindingApi = createApi({
         time: number;
         searchedTiles: number;
         pathSize: number;
+        imageString: string;
       }[],
       void
     >({
@@ -40,8 +42,22 @@ export const pathFindingApi = createApi({
       }),
       invalidatesTags: ["history"],
     }),
+    postPathFindingCompare: builder.mutation<
+      CompareResponseType,
+      { graph: Tiles[][] }
+    >({
+      query: (arg: { graph: Tiles[][] }) => ({
+        url: "/compare",
+        method: "POST",
+        body: { graph: arg.graph },
+      }),
+      invalidatesTags: ["history"],
+    }),
   }),
 });
 
-export const { usePostPathFindingMutation, useGetAllPathFindingsQuery } =
-  pathFindingApi;
+export const {
+  usePostPathFindingMutation,
+  useGetAllPathFindingsQuery,
+  usePostPathFindingCompareMutation,
+} = pathFindingApi;
