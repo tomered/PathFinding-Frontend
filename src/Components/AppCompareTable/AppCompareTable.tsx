@@ -28,8 +28,12 @@ const StyledTableCell = styled(TableCell)(({ theme }) => ({
   },
 }));
 
-function createData(name: any, data: any[]) {
-  return { name, data };
+function createData(
+  name: any,
+  data: any[],
+  fn?: (value: any, index: number, array: any[]) => string
+) {
+  return { name, data: fn ? data.map(fn) : data };
 }
 
 const StyledTableRow = styled(TableRow)(({ theme }) => ({
@@ -45,14 +49,14 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
 const AppCompareTable = () => {
   const solution = useAppSelector((state) => state.pathFinding.solution);
 
-  const bfsTime = formatMillisecondsToString(solution?.bfs.time ?? 0);
-  const dfsTime = formatMillisecondsToString(solution?.dfs.time ?? 0);
-  const bidirectionalTime = formatMillisecondsToString(
-    solution?.bidirectional_search.time ?? 0
-  );
-  const aStarTime = formatMillisecondsToString(
-    solution?.a_star_search.time ?? 0
-  );
+  // const bfsTime = formatMillisecondsToString(solution?.bfs.time ?? 0);
+  // const dfsTime = formatMillisecondsToString(solution?.dfs.time ?? 0);
+  // const bidirectionalTime = formatMillisecondsToString(
+  //   solution?.bidirectional_search.time ?? 0
+  // );
+  // const aStarTime = formatMillisecondsToString(
+  //   solution?.a_star_search.time ?? 0
+  // );
   const rows = [
     createData("Solution Graph", [
       <AppGraphImage
@@ -100,7 +104,16 @@ const AppCompareTable = () => {
       solution?.bidirectional_search.visitedList.flat().length,
       solution?.a_star_search.visitedList.flat().length,
     ]),
-    createData("Time", [bfsTime, dfsTime, bidirectionalTime, aStarTime]),
+    createData(
+      "Time",
+      [
+        solution?.bfs.time,
+        solution?.dfs.time,
+        solution?.bidirectional_search.time,
+        solution?.a_star_search.time,
+      ],
+      formatMillisecondsToString
+    ),
   ];
 
   return (
@@ -132,10 +145,9 @@ const AppCompareTable = () => {
               <StyledTableCell component="th" scope="row">
                 {row.name}
               </StyledTableCell>
-              <StyledTableCell align="center">{row.data[0]}</StyledTableCell>
-              <StyledTableCell align="center">{row.data[1]}</StyledTableCell>
-              <StyledTableCell align="center">{row.data[2]}</StyledTableCell>
-              <StyledTableCell align="center">{row.data[3]}</StyledTableCell>
+              {row.data.map((element) => (
+                <StyledTableCell align="center">{element}</StyledTableCell>
+              ))}
             </StyledTableRow>
           ))}
         </TableBody>

@@ -56,7 +56,8 @@ export default function AppMenu() {
     if (graph) {
       return compareGraph({ graph })
         .then((data) => {
-          // @ts-ignore it does not recognize data.data, and it should work because inside data there is data
+          // FIXME: it does not recognize data.data, and it should work because inside data there is data
+          // @ts-ignore
           dispatch(setCompareGraph(data.data));
         })
         .catch(console.log);
